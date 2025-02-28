@@ -62,17 +62,17 @@ $HOME/go/bin/cruded tx crude create-post "My Title" "This is the content" --from
 
 **Update a Post:**
 ```
-$HOME/go/bin/cruded tx crude update-post 0 "Updated Title" "Updated Content" --from alice --chain-id crude
+$HOME/go/bin/cruded tx crude update-post <post-id> "Updated Title" "Updated Content" --from alice --chain-id crude
 ```
 
 **Delete a Post:**
 ```
-$HOME/go/bin/cruded tx crude delete-post 0 --from alice --chain-id crude
+$HOME/go/bin/cruded tx crude delete-post <post-id> --from alice --chain-id crude
 ```
 
 **Show a Post:**
 ```
-$HOME/go/bin/cruded q crude show-post 0
+$HOME/go/bin/cruded q crude show-post <post-id>
 ```
 
 **Show the List of Posts:**
