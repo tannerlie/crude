@@ -90,16 +90,6 @@ One example of a consensus-breaking change in `crude` is modifying the `id` fiel
 #### Before:
 ```go
 type Post struct {
-    Id      string `json:"id"`
-    Title   string `json:"title"`
-    Content string `json:"content"`
-    Creator string `json:"creator"`
-}
-```
-
-#### After:
-```go
-type Post struct {
     Id      uint64 `json:"id"`
     Title   string `json:"title"`
     Content string `json:"content"`
