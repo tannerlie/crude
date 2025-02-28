@@ -9,9 +9,7 @@
 # b) Creating/updating the "latest" prerelease when you push to your default branch.
 #
 #    This type of prelease is useful to make your bleeding-edge binaries available to advanced users.
-#
-# The workflow will not run if there is no tag pushed with a "v" prefix and no change pushed to your
-# default branch.
+
 name: Release
 
 on: push
@@ -41,9 +39,18 @@ jobs:
           DO_NOT_TRACK: 1
           GOFLAGS: "-buildvcs=false"
 
+      - name: Check if "latest" tag exists
+        id: check_tag
+        run: |
+          if git rev-parse "refs/tags/latest" >/dev/null 2>&1; then
+            echo "exists=true" >> $GITHUB_ENV
+          else
+            echo "exists=false" >> $GITHUB_ENV
+          fi
+
       - name: Delete the "latest" Release
+        if: ${{ steps.check_tag.outputs.exists == 'true' && steps.vars.outputs.is_release_type_latest == 'true' }}
         uses: dev-drprasad/delete-tag-and-release@v0.2.1
-        if: ${{ steps.vars.outputs.is_release_type_latest == 'true' }}
         with:
           tag_name: ${{ steps.vars.outputs.tag_name }}
           delete_release: true
