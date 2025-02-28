@@ -107,10 +107,19 @@ type Post struct {
 }
 ```
 
+#### After:
+```go
+type Post struct {
+    Id      string `json:"id"`
+    Title   string `json:"title"`
+    Content string `json:"content"`
+    Creator string `json:"creator"`
+}
+```
+
 ### Why Does This Break Consensus?
-- **State Storage Incompatibility**: Old nodes store `Id` as a string, but new nodes expect an integer (`uint64`).
-- **Transaction Processing Mismatch**: Old transactions use `string` IDs, but new nodes expect `uint64`, causing failed verifications.
+- **State Storage Incompatibility**: Old nodes store `Id` as an integer (`uint64`), but new nodes expect string.
+- **Transaction Processing Mismatch**: Old transactions use `uint64` IDs, but new nodes expect `string`, causing failed verifications.
 - **Blockchain Fork Risk**: If not all nodes upgrade simultaneously, the network may split into incompatible chains.
 
 To prevent issues, consensus-breaking changes require a **hard fork** or state migration.
-
